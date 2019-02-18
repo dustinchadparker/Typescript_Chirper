@@ -1,10 +1,9 @@
-import express from "express";
-import chirpsStore from "../filestore";
+const express = require("express");
+const chirpsStore = require("../filestore");
 let router = express.Router();
 
-
 router.get("/:id?", (req, res) => {
-  let id:number = req.params.id;
+  let id = req.params.id;
   if (id) {
     res.json(chirpsStore.getChirp(id));
   } else {
@@ -13,13 +12,13 @@ router.get("/:id?", (req, res) => {
 });
 
 router.put("/:id?", (req, res) => {
-  let id:number = req.params.id;
+  let id = req.params.id;
   chirpsStore.updateChirp(id, req.body);
   res.sendStatus(200);
 });
 
 router.delete("/:id?", (req, res) => {
-  let id:number = req.params.id;
+  let id = req.params.id;
   if (id) {
     res.json(chirpsStore.DeleteChirp(id));
   } else {
