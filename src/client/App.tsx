@@ -12,12 +12,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
     this.state = { name: null };
   }
 
-  async componentWillMount() {
-    let r = await fetch("/api/hello");
-    let name = await r.json();
-    this.setState({ name });
-  }
-
   render() {
     return (
       <main className="container">

@@ -1,0 +1,63 @@
+.chirping-container {
+  display: inline;
+}
+
+.chirp,
+button {
+  background-color: #35362d;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: black;
+  border: 2px solid #55cbe9;
+}
+
+.chirp {
+  justify-content: space-between;
+  padding-left: 10px;
+  margin: 5px;
+  align-items: center;
+  box-shadow: 1px 3px #012e70;
+}
+
+#delete {
+  cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+}
+
+.deletetooltip {
+  visibility: hidden;
+  width: 60px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 0px 0;
+  border-radius: 6px;
+  bottom: 50%;
+  left: 100%;
+  margin-left: 2px;
+  position: absolute;
+  z-index: 1;
+}
+
+#delete:hover .deletetooltip {
+  visibility: visible;
+}
+
+#edit-chirps {
+  padding: 10px;
+}
+
+form {
+  padding-left: 8px;
+}
+
+.name {
+  font-size: 17px;
+}

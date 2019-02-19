@@ -1,25 +1,25 @@
-import express from "express";
-import chirpsStore from "../filestore";
+import * as express from "express";
+import * as chirpsStore from "../filestore";
+
 let router = express.Router();
 
-
 router.get("/:id?", (req, res) => {
-  let id:number = req.params.id;
+  let id: number = req.params.id;
   if (id) {
-    res.json(chirpsStore.getChirp(id));
+    res.json(chirpsStore.GetChirp(id));
   } else {
     res.send(chirpsStore.GetChirps());
   }
 });
 
 router.put("/:id?", (req, res) => {
-  let id:number = req.params.id;
-  chirpsStore.updateChirp(id, req.body);
+  let id: number = req.params.id;
+  chirpsStore.UpdateChirp(id, req.body);
   res.sendStatus(200);
 });
 
 router.delete("/:id?", (req, res) => {
-  let id:number = req.params.id;
+  let id: number = req.params.id;
   if (id) {
     res.json(chirpsStore.DeleteChirp(id));
   } else {
@@ -32,4 +32,4 @@ router.post("/", (req, res) => {
   res.sendStatus(200);
 });
 
-module.exports = router;
+export default router;

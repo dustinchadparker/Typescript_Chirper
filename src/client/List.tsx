@@ -6,7 +6,7 @@ export default class List extends React.Component<IListProps, IListState> {
     super(props);
   }
 
-  getData = () => {
+  getData() {
     $.ajax({
       method: "GET",
       url: "http://localhost:3000/api/chirps/",
@@ -32,11 +32,10 @@ export default class List extends React.Component<IListProps, IListState> {
     });
   }
 
-  async submitChirp() {
+  submitChirp() {
     let value = $("#create-chirp").val();
 
     let valueName = $("#create-name").val();
-
     let text = { name: valueName, text: value };
 
     $.ajax({
