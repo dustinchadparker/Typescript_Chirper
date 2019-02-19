@@ -6,35 +6,39 @@ export default class List extends React.Component<IListProps, IListState> {
     super(props);
   }
 
-  getData() {
-    $.ajax({
-      method: "GET",
-      url: "http://localhost:3000/api/chirps/",
-      dataType: "json",
-      success: function(res) {
-        $.each(res, (idNum: number, obj) => {
-          if (obj.text) {
-            $(".chirping-container").append(
-              `<div class="chirp border media-body border-primary" id="${idNum}"><h4 class="media-heading name">${
-                obj.name
-              }: </h4><p> ${obj.text}</p></div>`
-            );
+  getData = () => {
+    return (
+      <div className="chirping-container">
+      
+        {$.ajax({
+          method: "GET",
+          url: "http://localhost:3000/api/chirps/",
+          dataType: "json",
+          success: function(res) {
+            $.each(res, (idNum: number, obj) => {
+              if (obj.text) {
+                $(".chirping-container").append(
+                  `<div class="chirp border media-body border-primary" id="${idNum}"><h4 class="media-heading name">${
+                    obj.name
+                  }: </h4><p> ${obj.text}</p></div>`
+                );
 
-            $(`#${idNum}`).append(
-              `<button class="btn btn-outline-success" id="editor" type="button" onclick="editChirp(${idNum})">Edit</button>`
-            );
-            $(`#${idNum}`).append(
-              `<button class="btn btn-outline-danger" id="delete" type="button" onclick="deleteChirp(${idNum})">X<span class="deletetooltip">Delete</span></button>`
-            );
+                $(`#${idNum}`).append(
+                  `<button class="btn btn-outline-success" id="editor" type="button" onclick="editChirp(${idNum})">Edit</button>`
+                );
+                $(`#${idNum}`).append(
+                  `<button class="btn btn-outline-danger" id="delete" type="button" onclick="deleteChirp(${idNum})">X<span class="deletetooltip">Delete</span></button>`
+                );
+              }
+            });
           }
-        });
-      }
-    });
+        })}
+      </div>
+    );
   }
 
   submitChirp() {
     let value = $("#create-chirp").val();
-
     let valueName = $("#create-name").val();
     let text = { name: valueName, text: value };
 
@@ -48,11 +52,14 @@ export default class List extends React.Component<IListProps, IListState> {
     $("#create-chirp").val("");
 
     location.reload();
+    this.getData();
   }
 
   render() {
     return (
+      
       <body>
+        {this.getData}
         <form>
           Name:
           <input
@@ -75,7 +82,8 @@ export default class List extends React.Component<IListProps, IListState> {
           />
         </form>
 
-        <div className="chirping-container">{this.getData}</div>
+
+        
       </body>
     );
   }
