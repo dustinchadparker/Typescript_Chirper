@@ -1,31 +1,10 @@
-.chirping-container {
-  display: inline;
-}
-
-.chirp,
-button {
-  background-color: #35362d;
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 14px;
-  margin: 5px;
-}
-
 button:hover {
   background-color: #ffffff;
   color: black;
   border: 2px solid #55cbe9;
 }
 
-.chirp {
-  justify-content: space-between;
-  padding-left: 10px;
-  margin: 5px;
-  align-items: center;
-  box-shadow: 1px 3px #012e70;
-}
-
-#delete {
+.btn-danger {
   cursor: pointer;
   position: relative;
   border-radius: 5px;
@@ -34,30 +13,50 @@ button:hover {
 .deletetooltip {
   visibility: hidden;
   width: 60px;
-  background-color: white;
-  color: black;
+  background-color: black;
+  box-shadow: 1px 1px 20px 2px rgb(255, 255, 255) inset;
+  color: white;
   text-align: center;
   padding: 0px 0;
-  border-radius: 6px;
-  bottom: 50%;
-  left: 100%;
-  margin-left: 2px;
+  border-radius: 3px;
+  bottom: 110%;
+  left: -40%;
+  margin-left: 0px;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 }
 
-#delete:hover .deletetooltip {
+.btn-danger:hover .deletetooltip {
   visibility: visible;
 }
 
-#edit-chirps {
-  padding: 10px;
+label {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 14px;
 }
 
-form {
-  padding-left: 8px;
+body {
+  background-image: linear-gradient(to bottom right, white, rgb(143, 143, 143));
 }
 
-.name {
-  font-size: 17px;
+.card-body {
+  box-shadow: 1px 1px 20px 2px rgb(204, 204, 204) inset;
+  background-color: rgb(85, 1, 1);
+  color: white;
+}
+
+.says {
+  font-size: 12px;
+}
+
+p {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  margin-bottom: 2px;
+  text-shadow: 1px 1px 2px black, 0 0 25px rgb(1, 180, 250),
+    0 0 5px rgb(0, 111, 139);
 }

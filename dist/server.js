@@ -93,19 +93,31 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const fs = __webpack_require__(/*! fs */ \"fs\");\nlet chirps = { nextid: 0 };\n\nif (fs.existsSync(\"chirps.json\")) {\n  chirps = JSON.parse(fs.readFileSync(\"chirps.json\"));\n}\n\nlet getChirps = () => {\n  return Object.assign({}, chirps); //create a copy and return it\n};\n\nlet getChirp = id => {\n  return Object.assign({}, chirps[id]); //create a copy and return it\n};\n\nlet createChirp = chirp => {\n  chirps[chirps.nextid++] = chirp;\n  writeChirps();\n};\n\nlet updateChirp = (id, chirp) => {\n  chirps[id] = chirp;\n  writeChirps();\n};\n\nlet deleteChirp = id => {\n  delete chirps[id];\n  writeChirps();\n};\n\nlet writeChirps = () => {\n  fs.writeFileSync(\"chirps.json\", JSON.stringify(chirps));\n};\n\nmodule.exports = {\n  CreateChirp: createChirp,\n  DeleteChirp: deleteChirp,\n  GetChirps: getChirps,\n  GetChirp: getChirp,\n  UpdateChirp: updateChirp\n};\n\n\n//# sourceURL=webpack:///./src/server/filestore.js?");
+eval("const fs = __webpack_require__(/*! fs */ \"fs\");\nlet chirps = { nextid: 0 };\n\nif (fs.existsSync(\"chirps.json\")) {\n  chirps = JSON.parse(fs.readFileSync(\"chirps.json\"));\n}\n\nlet getChirps = () => {\n  return Object.assign({}, chirps); //create a copy and return it\n};\n\nlet getChirp = id => {\n  return Object.assign({}, chirps[id]); //create a copy and return it\n};\n\nlet createChirp = chirp => {\n  chirps[chirps.nextid++] = chirp;\n  writeChirps();\n};\n\nlet updateChirp = (id, chirp) => {\n  chirps[id] = chirp;\n  writeChirps();\n};\n\nlet deleteChirp = id => {\n  delete chirps[id];\n  writeChirps();\n};\n\nlet writeChirps = () => {\n  fs.writeFileSync(\"chirps.json\", JSON.stringify(chirps, null, 2));\n};\n\nmodule.exports = {\n  CreateChirp: createChirp,\n  DeleteChirp: deleteChirp,\n  GetChirps: getChirps,\n  GetChirp: getChirp,\n  UpdateChirp: updateChirp\n};\n\n\n//# sourceURL=webpack:///./src/server/filestore.js?");
 
 /***/ }),
 
-/***/ "./src/server/routes/chirps.ts":
-/*!*************************************!*\
-  !*** ./src/server/routes/chirps.ts ***!
-  \*************************************/
+/***/ "./src/server/routes/api/chirps.ts":
+/*!*****************************************!*\
+  !*** ./src/server/routes/api/chirps.ts ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar chirpsStore = __webpack_require__(/*! ../filestore */ \"./src/server/filestore.js\");\r\nvar router = express.Router();\r\nrouter.get(\"/:id?\", function (req, res) {\r\n    var id = req.params.id;\r\n    if (id) {\r\n        res.json(chirpsStore.GetChirp(id));\r\n    }\r\n    else {\r\n        res.send(chirpsStore.GetChirps());\r\n    }\r\n});\r\nrouter.put(\"/:id?\", function (req, res) {\r\n    var id = req.params.id;\r\n    chirpsStore.UpdateChirp(id, req.body);\r\n    res.sendStatus(200);\r\n});\r\nrouter.delete(\"/:id?\", function (req, res) {\r\n    var id = req.params.id;\r\n    if (id) {\r\n        res.json(chirpsStore.DeleteChirp(id));\r\n    }\r\n    else {\r\n        res.send(chirpsStore.GetChirps());\r\n    }\r\n});\r\nrouter.post(\"/\", function (req, res) {\r\n    chirpsStore.CreateChirp(req.body);\r\n    res.sendStatus(200);\r\n});\r\nexports.default = router;\r\n\n\n//# sourceURL=webpack:///./src/server/routes/chirps.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar Chirps = __webpack_require__(/*! ../../filestore */ \"./src/server/filestore.js\");\r\nvar router = express.Router();\r\nrouter.get(\"/:id?\", function (req, res, next) {\r\n    var id = req.params.id;\r\n    if (id) {\r\n        res.send(Chirps.GetChirp(id));\r\n    }\r\n    else {\r\n        res.send(Chirps.GetChirps());\r\n    }\r\n});\r\nrouter.post(\"/\", function (req, res, next) {\r\n    var chirp = req.body;\r\n    Chirps.CreateChirp(chirp);\r\n    res.sendStatus(200);\r\n});\r\nrouter.put(\"/:id\", function (req, res, next) {\r\n    var id = req.params.id;\r\n    var chirp = req.body;\r\n    Chirps.UpdateChirp(id, chirp);\r\n    res.sendStatus(200);\r\n});\r\nrouter.delete(\"/:id\", function (req, res, next) {\r\n    var id = req.params.id;\r\n    Chirps.DeleteChirp(id);\r\n    res.sendStatus(200);\r\n});\r\nexports.default = router;\r\n\n\n//# sourceURL=webpack:///./src/server/routes/api/chirps.ts?");
+
+/***/ }),
+
+/***/ "./src/server/routes/api/index.ts":
+/*!****************************************!*\
+  !*** ./src/server/routes/api/index.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar chirps_1 = __webpack_require__(/*! ./chirps */ \"./src/server/routes/api/chirps.ts\");\r\nvar router = express.Router();\r\nrouter.use(\"/chirps\", chirps_1.default);\r\nexports.default = router;\r\n\n\n//# sourceURL=webpack:///./src/server/routes/api/index.ts?");
 
 /***/ }),
 
@@ -117,7 +129,7 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nva
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar chirps_1 = __webpack_require__(/*! ./chirps */ \"./src/server/routes/chirps.ts\");\r\nvar router = express.Router();\r\nrouter.use(\"/chirps\", chirps_1.default);\r\nexports.default = router;\r\n\n\n//# sourceURL=webpack:///./src/server/routes/index.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar api_1 = __webpack_require__(/*! ./api */ \"./src/server/routes/api/index.ts\");\r\nvar router = express.Router();\r\nrouter.use(\"/api\", api_1.default);\r\nexports.default = router;\r\n\n\n//# sourceURL=webpack:///./src/server/routes/index.ts?");
 
 /***/ }),
 
@@ -129,18 +141,7 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nva
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes/index.ts\");\r\nvar bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\r\nvar app = express();\r\nvar p = path.join(__dirname, \"../public\");\r\nvar port = process.env.PORT || 3000;\r\napp.listen(port, function () {\r\n    console.log(\"Server listening on port: \" + port);\r\n});\r\napp.use(bodyParser.json());\r\napp.use(express.static(p));\r\napp.use(\"/api\", routes_1.default);\r\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
-
-/***/ }),
-
-/***/ "body-parser":
-/*!******************************!*\
-  !*** external "body-parser" ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"body-parser\");\n\n//# sourceURL=webpack:///external_%22body-parser%22?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar routes_1 = __webpack_require__(/*! ./routes */ \"./src/server/routes/index.ts\");\r\nvar app = express();\r\nvar p = path.join(__dirname, \"../public\");\r\nconsole.log(p);\r\napp.use(express.static(p));\r\napp.use(express.json());\r\napp.use(routes_1.default);\r\nvar port = process.env.PORT || 3000;\r\napp.listen(port, function () {\r\n    console.log(\"Server listening on port: \" + port);\r\n});\r\n\n\n//# sourceURL=webpack:///./src/server/server.ts?");
 
 /***/ }),
 

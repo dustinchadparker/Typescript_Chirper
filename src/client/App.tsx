@@ -1,33 +1,29 @@
 import * as React from "react";
+import "./scss/app";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./scss/app";
-import List from "./List";
-// import Detail from './Detail';
+import List from "./components/List";
+import EditingChirp from "./components/Editing";
 
-export default class App extends React.Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
-    super(props);
-
-    this.state = { name: null };
-  }
-
+class IApp extends React.Component<IAppProps, IAppState> {
   render() {
     return (
-      <main className="container">
-        <Router>
-          <Switch>
-            <Route exact path="/" component={List} />
-            {/* <Route path="/:name" component={Detail} /> */}
-          </Switch>
-        </Router>
-      </main>
+      <Router>
+        <>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={List} />
+              <Route exact path="/editing/:id" component={EditingChirp} />
+            </Switch>
+          </div>
+        </>
+      </Router>
     );
   }
 }
 
 interface IAppProps {}
+interface IAppState {}
 
-interface IAppState {
-  name: string;
-}
+export default IApp;

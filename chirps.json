@@ -1,1 +1,11 @@
-{"0":{"user":"Hsdfsdfslo","text":"sdfsdefcsegfaeswr"},"1":{"user":"ty","text":"ghfdrffff"},"35":{"name":"Charles","text":"Harro"},"36":{"name":"Charles","text":"pppppp"},"37":{"name":"afaes","text":"Harro"},"38":{"name":"afaes","text":"Harro"},"39":{"name":"rgdfgd","text":"Harro"},"40":{"name":"Charles","text":"Harro"},"41":{"name":"Charles","text":"Harro"},"42":{"name":"Charles","text":"Harro"},"43":{"name":"","text":""},"44":{"name":"","text":""},"nextid":45}
+{
+  "0": {
+    "user": "Charlie",
+    "content": "First Chirp!!"
+  },
+  "1": {
+    "user": "CharlieBoy",
+    "content": "Edited second chirp"
+  },
+  "nextid": 2
+}
